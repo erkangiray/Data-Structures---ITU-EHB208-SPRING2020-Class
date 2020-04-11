@@ -9,7 +9,7 @@ typedef struct {
 
 typedef struct {
 	int size, index;
-	item_t** item;
+	item_t* item[1000];
 }queue_t;
 
 /*struct Node{
@@ -63,7 +63,6 @@ void printList(struct Node** head, int const* count) {
 void init_qu(queue_t* queue1,int size) {
 	queue1->size = size;
 	queue1->index = 0;
-	(*queue1).item = (item_t**)malloc(size*sizeof(item_t*));//dynamically allocate memory for size times item_t pointers
 
 }
 
@@ -73,8 +72,7 @@ int queue_add(queue_t* p_queue, item_t* p_item) {
 		return 1;
 	}
 
-	*((*(p_queue->item) + (p_queue->index) * sizeof(item_t))->p_data) = *(p_item->p_data);
-	//p_queue->item[p_queue->index] = p_item;
+	p_queue->item[p_queue->index] = p_item;
 	p_queue->index++;
 	return 0;
 }
@@ -86,7 +84,7 @@ void printQ(queue_t* p_queue) {
 	}
 	int temp_index = p_queue->index;
 	while (temp_index >= 0) {
-		printf("Priority:%d  Data:%d\n", (*(p_queue->item)+ (p_queue->index) * sizeof(item_t))->p_priority, *((*(p_queue->item) + (p_queue->index) * sizeof(item_t))->p_data));
+		printf("Priority:%d  Data:%d\n", p_queue->item[temp_index]->p_priority, *(p_queue->item[temp_index]->p_data));
 		temp_index--;
 	}
 }
