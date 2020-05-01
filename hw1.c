@@ -20,17 +20,22 @@ void StackYarat(struct Stack** head){
 }
 
 void set(struct Stack*stack,char* Num){
-    int number[9]={0};
-    for(int i=8;i>=0;i--){
-        number[i]=(Num[i]-48);//inanilmaz trick
+    int number[10]={0};
+    for(int i=9;i>=1;i--){
+        number[i]=(Num[(i-1)]-48);//inanilmaz trick
         //0 karakteri ASCII'de 48 ve 9 karakteri 57 ise 48-48=0 ve 57-48=9
     }
-    /*getDigits(&number,Num);*/
+    for (int j=7;j<10;j++){
+        number[0]=number[0]+number[j];
+        number[0] = number[0]*10;//basamak arttir
+    }
+    number[0]=number[0]/10; //bir basamak fazla fix
+
     struct OgrNo* n_dgt=(struct OgrNo*)malloc(sizeof(struct OgrNo));
-    n_dgt->sayi=number[8];
+    n_dgt->sayi=number[9];
     n_dgt->next=NULL;
     stack->ogr_b=n_dgt;
-    for(int i=7;i>=0;i--){
+    for(int i=8;i>=0;i--){
     struct OgrNo* n_dgt=(struct OgrNo*)malloc(sizeof(struct OgrNo));
     n_dgt->sayi=number[i];
     n_dgt->next=stack->ogr_b;
@@ -66,10 +71,10 @@ int main(){
     char*OgrNo1 = "040170111";
     OgrNo_entry(OgrNo1,&yigin1);
     char*OgrNo2 = "050102025";
-    OgrNo_entry(OgrNo1,&yigin1);
+    OgrNo_entry(OgrNo2,&yigin1);
     char*OgrNo3 = "050102002";
-    OgrNo_entry(OgrNo1,&yigin1);
+    OgrNo_entry(OgrNo3,&yigin1);
     char*OgrNo4 = "050102018";
-    OgrNo_entry(OgrNo1,&yigin1);
+    OgrNo_entry(OgrNo4,&yigin1);
 
 }
